@@ -1,16 +1,27 @@
-# React + Vite
+# 📖 AI-BOOk Studio (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + Vite frontend application for the **AI-Powered eBook Creator**.
 
-Currently, two official plugins are available:
+## Features
+- **Landing Page**: High-converting hero banner, interactive studio demo mockup, feature highlights.
+- **Dashboard**: Stats cards (Total Books, Words Generated, Total Chapters), search bar, genre filtering.
+- **eBook Creation Modal**: Multi-step wizard with Gemini AI chapter outline generation.
+- **Studio Editor**: Chapter tree navigation, reordering, title editor, and inline Gemini AI assistant (Expand, Summarize, Rewrite, Fix Grammar).
+- **Reader View**: Table of Contents, theme switcher (*Light*, *Sepia*, *Dark*), font scaling, and TXT exporter.
+- **Profile**: Manage user account and Google Gemini API key settings.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+```bash
+# Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Run dev server
+npm run dev
 
-## Expanding the ESLint configuration
+# Lint code
+npm run lint
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Build for production
+npm run build
+```
