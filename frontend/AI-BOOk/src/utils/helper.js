@@ -6,7 +6,7 @@ export const calculateWordCount = (text) => {
 export const calculateReadingTime = (wordCount) => {
   const wordsPerMinute = 200;
   const minutes = Math.ceil(wordCount / wordsPerMinute);
-  return minutes === 0 ? '1 min' : `${minutes} min`;
+  return minutes === 0 ? '1 min' : `${minutes} min read`;
 };
 
 export const formatDate = (dateString) => {
@@ -38,9 +38,11 @@ export const exportAsFile = (filename, content, mimeType = 'text/plain') => {
 };
 
 export const GENRE_COLOR_MAP = {
-  'Non-Fiction': 'from-amber-500 to-orange-600',
-  'Fiction & Sci-Fi': 'from-purple-600 to-indigo-600',
-  'Business & Tech': 'from-blue-600 to-cyan-600',
-  'Self-Help & Growth': 'from-emerald-500 to-teal-700',
-  'Education & Guide': 'from-rose-500 to-pink-600',
+  'Non-Fiction': 'from-purple-600 to-indigo-600',
+  'Fiction & Sci-Fi': 'from-purple-700 to-pink-600',
+  'Business & Tech': 'from-blue-600 to-indigo-700',
+  'Self-Help & Growth': 'from-violet-500 to-purple-700',
+  'Education & Guide': 'from-emerald-600 to-teal-700',
+  'Health & Wellness': 'from-teal-500 to-emerald-700',
+  'Memoir & Biography': 'from-rose-500 to-purple-600',
 };

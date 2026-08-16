@@ -23,13 +23,13 @@ const ProfilePage = () => {
     <DashboardLayout>
       <div className="max-w-3xl mx-auto space-y-6">
         <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 text-white font-bold text-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-bold text-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
             {user?.name ? user.name[0].toUpperCase() : 'A'}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">{user?.name || 'Author'}</h1>
-            <p className="text-xs text-gray-500">{user?.email}</p>
-            <span className="inline-block mt-1 bg-orange-50 text-orange-600 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-orange-100">
+            <h1 className="text-xl font-bold text-gray-900">{user?.name || 'Alex Doe'}</h1>
+            <p className="text-xs text-gray-500">{user?.email || 'alex@metaprogram.com'}</p>
+            <span className="inline-block mt-1 bg-purple-50 text-purple-700 text-[10px] font-bold px-3 py-0.5 rounded-full border border-purple-100">
               eBook Creator Pro Member
             </span>
           </div>
@@ -37,7 +37,7 @@ const ProfilePage = () => {
 
         <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs space-y-4">
           <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
-            <div className="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center">
               <Key className="w-5 h-5" />
             </div>
             <div>
@@ -61,7 +61,7 @@ const ProfilePage = () => {
                 How to get a free Google Gemini API Key:
               </div>
               <ol className="list-decimal list-inside space-y-1 pl-1">
-                <li>Visit Google AI Studio key portal at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-orange-600 underline font-medium">aistudio.google.com <ExternalLink className="inline w-3 h-3" /></a></li>
+                <li>Visit Google AI Studio key portal at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-purple-600 underline font-medium">aistudio.google.com <ExternalLink className="inline w-3 h-3" /></a></li>
                 <li>Click <strong>"Create API Key"</strong></li>
                 <li>Copy and paste your key above to enable real-time AI chapter generation!</li>
               </ol>
@@ -72,6 +72,7 @@ const ProfilePage = () => {
               variant="primary"
               icon={Save}
               isLoading={loading}
+              className="shadow-purple-500/25"
             >
               Save API Settings
             </Button>

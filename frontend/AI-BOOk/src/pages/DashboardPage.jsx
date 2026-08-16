@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import BookCard from '../components/cards/BookCard';
 import CreateBookModal from '../components/modals/CreateBookModal';
-import { INITIAL_MOCK_BOOKS, BOOK_GENRES } from '../utils/data';
-import { Search, BookOpen, FileText, Layers, Plus } from 'lucide-react';
+import {
+  BOOK_GENRES,
+  getStoredBooks,
+  saveStoredBook,
+  deleteStoredBook,
+} from '../utils/data';
+import { Search, BookOpen, FileText, Layers, Plus, Sparkles } from 'lucide-react';
 import axiosInstance from '../utils/axiosInstance';
 import { API_PATHS } from '../utils/apiPaths';
 import toast from 'react-hot-toast';
@@ -23,14 +28,15 @@ const DashboardPage = () => {
         if (isMounted) {
           if (res.data && Array.isArray(res.data) && res.data.length > 0) {
             setBooks(res.data);
+            res.data.forEach((b) => saveStoredBook(b));
           } else {
-            setBooks(INITIAL_MOCK_BOOKS);
+            setBooks(getStoredBooks());
           }
         }
       } catch (err) {
         console.warn('Backend books fetch fallback:', err.message);
         if (isMounted) {
-          setBooks(INITIAL_MOCK_BOOKS);
+          setBooks(getStoredBooks());
         }
       } finally {
         if (isMounted) {
@@ -46,7 +52,8 @@ const DashboardPage = () => {
   }, []);
 
   const handleBookCreated = (newBook) => {
-    setBooks([newBook, ...books]);
+    const updated = saveStoredBook(newBook);
+    setBooks(updated);
   };
 
   const handleDeleteBook = async (bookId) => {
@@ -55,7 +62,8 @@ const DashboardPage = () => {
     } catch (err) {
       console.warn('Backend delete book fallback:', err.message);
     }
-    setBooks(books.filter((b) => b._id !== bookId));
+    const updated = deleteStoredBook(bookId);
+    setBooks(updated);
     toast.success('eBook deleted');
   };
 
@@ -78,9 +86,10 @@ const DashboardPage = () => {
   return (
     <DashboardLayout onCreateBookClick={() => setIsModalOpen(true)}>
       <div className="space-y-8">
+        {/* Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+          <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold shadow-xs">
               <BookOpen className="w-6 h-6" />
             </div>
             <div>
@@ -91,8 +100,8 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+          <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold shadow-xs">
               <FileText className="w-6 h-6" />
             </div>
             <div>
@@ -103,8 +112,8 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+          <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shadow-xs">
               <Layers className="w-6 h-6" />
             </div>
             <div>
@@ -116,15 +125,16 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-xs">
+        {/* Search & Genre Filters */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white p-4 rounded-3xl border border-gray-100 shadow-xs">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search eBooks by title or keyword..."
+              placeholder="Search eBooks by title or topic..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-xs rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50/50"
+              className="w-full pl-11 pr-4 py-2.5 text-xs rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-50/50"
             />
           </div>
 
@@ -133,10 +143,10 @@ const DashboardPage = () => {
               <button
                 key={genre}
                 onClick={() => setSelectedGenre(genre)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   selectedGenre === genre
-                    ? 'bg-orange-500 text-white shadow-2xs'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-purple-600 text-white shadow-xs'
+                    : 'bg-gray-100 text-gray-600 hover:bg-purple-50 hover:text-purple-700'
                 }`}
               >
                 {genre}
@@ -145,10 +155,11 @@ const DashboardPage = () => {
           </div>
         </div>
 
+        {/* Books List Grid */}
         {loading ? (
-          <div className="py-16 text-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-orange-500 mx-auto" />
-            <p className="mt-4 text-xs font-medium text-gray-500">Loading your eBooks...</p>
+          <div className="py-20 text-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-purple-600 mx-auto" />
+            <p className="mt-4 text-xs font-medium text-gray-500">Loading your eBook library...</p>
           </div>
         ) : filteredBooks.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -157,21 +168,21 @@ const DashboardPage = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-3xl border border-gray-100 p-12 text-center space-y-4 max-w-lg mx-auto">
-            <div className="w-16 h-16 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center mx-auto">
+          <div className="bg-white rounded-3xl border border-gray-100 p-12 text-center space-y-4 max-w-lg mx-auto shadow-xs">
+            <div className="w-16 h-16 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center mx-auto shadow-xs">
               <BookOpen className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-bold text-gray-900">No eBooks Found</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
               {searchQuery || selectedGenre !== 'All'
-                ? 'No eBooks matched your current filters. Try resetting your search.'
-                : 'You have not created any eBooks yet. Get started by creating your first AI-generated eBook!'}
+                ? 'No eBooks matched your current filter criteria. Try resetting your search.'
+                : 'You have not created any eBooks yet. Get started by creating your first AI-powered eBook!'}
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold text-xs rounded-xl shadow-md hover:from-amber-600 hover:to-orange-700 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs rounded-full shadow-md shadow-purple-500/25 hover:from-purple-700 hover:to-indigo-700 transition-all cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
+              <Sparkles className="w-4 h-4" />
               Create New eBook
             </button>
           </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import ViewBook from '../components/view/viewBook';
-import { INITIAL_MOCK_BOOKS } from '../utils/data';
+import { getStoredBookById } from '../utils/data';
 import axiosInstance from '../utils/axiosInstance';
 import { API_PATHS } from '../utils/apiPaths';
 
@@ -22,7 +22,7 @@ const ViewBookPage = () => {
       } catch (err) {
         console.warn('Backend view book fallback:', err.message);
         if (isMounted) {
-          const found = INITIAL_MOCK_BOOKS.find((b) => b._id === bookId) || INITIAL_MOCK_BOOKS[0];
+          const found = getStoredBookById(bookId);
           setBook(found);
         }
       } finally {

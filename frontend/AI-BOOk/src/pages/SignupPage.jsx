@@ -34,15 +34,15 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50/50 via-white to-gray-50 font-display flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-3xl border border-gray-100 shadow-xl p-8 space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50/50 via-white to-purple-50/30 font-display flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-3xl border border-purple-100 shadow-xl p-8 space-y-6">
         <div className="text-center space-y-2">
           <Link to="/" className="inline-flex items-center gap-2">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/20">
               <BookOpen className="w-6 h-6" />
             </div>
           </Link>
-          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Create Author Account</h2>
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Create Creator Account</h2>
           <p className="text-xs text-gray-500">Start writing AI eBooks in minutes</p>
         </div>
 
@@ -86,7 +86,7 @@ const SignupPage = () => {
             size="lg"
             icon={Sparkles}
             isLoading={loading}
-            className="w-full text-sm font-semibold"
+            className="w-full text-sm font-semibold shadow-purple-500/25"
           >
             Create Free Account
           </Button>
@@ -94,7 +94,7 @@ const SignupPage = () => {
 
         <div className="pt-4 border-t border-gray-100 text-center text-xs text-gray-500">
           Already have an account?{' '}
-          <Link to="/login" className="font-bold text-orange-600 hover:text-orange-700">
+          <Link to="/login" className="font-bold text-purple-600 hover:text-purple-700">
             Log in here
           </Link>
         </div>

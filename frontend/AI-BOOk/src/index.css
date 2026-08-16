@@ -1,18 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-   --font-display: "Inter", sans-serif;
+   --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
    --breakpoint-3xl: 1920px;
-   --color-primary:#FF9324;
+   --color-primary: #7C3AED;
+   --color-primary-hover: #6D28D9;
+   --color-primary-light: #F3E8FF;
 }
 
 @layer base {
-  html{
+  html {
     font-family: var(--font-display);
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: #fcfcfc;
+    background-color: #ffffff;
+    color: #111827;
+    overflow-x: hidden;
   }
+}
+
+/* Custom subtle animations and glowing gradients */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatSlow 5s ease-in-out 2.5s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
 }

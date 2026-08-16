@@ -16,7 +16,7 @@ const ProfileDropdown = () => {
         .join('')
         .toUpperCase()
         .slice(0, 2)
-    : 'AU';
+    : 'AD';
 
   const menuItems = [
     {
@@ -46,13 +46,13 @@ const ProfileDropdown = () => {
   ];
 
   const trigger = (
-    <button className="flex items-center gap-3 p-1.5 rounded-full hover:bg-gray-100 transition-colors focus:outline-none">
-      <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 text-white font-semibold text-xs flex items-center justify-center shadow-md shadow-orange-500/20 ring-2 ring-white">
+    <button className="flex items-center gap-3 p-1.5 rounded-full hover:bg-purple-50 transition-colors focus:outline-none cursor-pointer">
+      <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-semibold text-xs flex items-center justify-center shadow-md shadow-purple-500/20 ring-2 ring-white">
         {initials}
       </div>
       <div className="hidden md:block text-left pr-1">
-        <div className="text-xs font-semibold text-gray-800 leading-tight">{user.name}</div>
-        <div className="text-[10px] text-gray-500 leading-tight">{user.email}</div>
+        <div className="text-xs font-semibold text-gray-800 leading-tight">{user.name || 'Alex Doe'}</div>
+        <div className="text-[10px] text-gray-500 leading-tight">{user.email || 'alex@metaprogram.com'}</div>
       </div>
     </button>
   );

@@ -13,7 +13,7 @@ const SelectField = ({
     <div className={`w-full ${className}`}>
       {label && (
         <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">
-          {label} {required && <span className="text-orange-500">*</span>}
+          {label} {required && <span className="text-purple-600">*</span>}
         </label>
       )}
       <select
@@ -22,7 +22,7 @@ const SelectField = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full rounded-xl border border-gray-200 text-gray-900 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition duration-150 ease-in-out"
+        className="w-full rounded-2xl border border-gray-200 text-gray-900 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-150 ease-in-out cursor-pointer"
       >
         {options.map((option, idx) => {
           const val = typeof option === 'object' ? option.value : option;
